@@ -1,0 +1,43 @@
+<html  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<header th:fragment="navi">
+    <nav class="main-nav" >
+        <ul >
+            <th:block  sec:authorize="!isAuthenticated()" >
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li >
+                    <a href="/users/login" >Login</a>
+                </li>
+                <li>
+                    <a href="/users/register">Register</a>
+                </li>
+                <li>
+                    <a href="/about">About</a>
+                </li>
+            </th:block>
+
+            <th:block sec:authorize="isAuthenticated()">
+
+                <li>
+                    <a href="/routes/add">Add new route</a>
+                </li>
+                <li>
+                    <a th:href="@{/users/profile}">Profile</a>
+                </li>
+                <li sec:authorize="hasAnyRole('ADMIN')">
+                    <a href="/">Admin</a>
+                </li>
+                <li>
+
+                    <form th:action="@{/users/logout}" method="POST">
+                        <input class="btn btn-link nav-link" type="submit">Logout</input>
+                    </form>
+
+                </li>
+            </th:block>
+
+        </ul>
+    </nav>
+</header>
+</html>
